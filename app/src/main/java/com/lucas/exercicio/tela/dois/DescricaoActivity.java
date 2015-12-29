@@ -3,6 +3,7 @@ package com.lucas.exercicio.tela.dois;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,18 +53,25 @@ public class DescricaoActivity extends AppCompatActivity {
                         TextView country = (TextView) findViewById(R.id.country);
                         TextView rating = (TextView) findViewById(R.id.rating);
 
+                        TextView stats = (TextView) findViewById(R.id.stats);
+                        TextView link = (TextView) findViewById(R.id.link);
+
                         venueT.setText(venue);
                         address.setText(resultado.getAddress());
                         city.setText(resultado.getCity());
                         state.setText(resultado.getState());
                         country.setText(resultado.getCountry());
                         rating.setText(resultado.getAverage_rating());
+                        if (resultado.getStats() != null) {
+                            stats.setText(Html.fromHtml(resultado.getStats()));
+                        }
+                        Toast.makeText(DescricaoActivity.this,resultado.getLink(), Toast.LENGTH_LONG).show();
+                        if (resultado.getLink() != null) {
+                            link.setText(resultado.getLink());
+                        }
 
                         ImageView imageView = (ImageView) findViewById(R.id.imagem_descricao);
                         Picasso.with(DescricaoActivity.this).load("http://aviewfrommyseat.com/photos/" + resultado.getNewest_image()).into(imageView);
-
-                        Toast.makeText(DescricaoActivity.this, resultado.getAddress(), Toast.LENGTH_LONG).show();
-                        // TODO continuar aqui
                     } else {
                         Log.i("ERROR", "Status: "+ response.code() + ". " + response.errorBody().toString());
                     }
