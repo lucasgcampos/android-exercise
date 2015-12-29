@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="2dp"
-    card_view:cardCornerRadius="12dp"
-    android:background="@color/cardview_shadow_end_color"
+    card_view:cardCornerRadius="2dp"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout

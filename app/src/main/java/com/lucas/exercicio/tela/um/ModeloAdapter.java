@@ -1,4 +1,4 @@
-package com.lucas.exercicio;
+package com.lucas.exercicio.tela.um;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lucas.exercicio.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -48,7 +49,7 @@ public class ModeloAdapter extends BaseAdapter{
             linha = inflater.inflate(R.layout.lista, parent, false);
         }
 
-        Modelo first = modelos.getAvfms().get(position);
+        Modelo first = (Modelo) modelos.getAvfms().get(position);
 
         ImageView imageView = (ImageView) linha.findViewById(R.id.imagem);
         Picasso.with(context).load("http://aviewfrommyseat.com/wallpaper/" + first.getImage()).into(imageView);

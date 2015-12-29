@@ -1,9 +1,17 @@
-package com.lucas.exercicio;
+package com.lucas.exercicio.tela.um;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.lucas.exercicio.tela.dois.DescricaoActivity;
+import com.lucas.exercicio.ModelService;
+import com.lucas.exercicio.R;
+import com.lucas.exercicio.RestClient;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -26,12 +34,20 @@ public class ListaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<ListaModelo> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    ListaModelo resultados = response.body();
+                    final ListaModelo resultados = response.body();
 
                     ModeloAdapter adapter = new ModeloAdapter(resultados, ListaActivity.this);
 
                     ListView listView = (ListView) findViewById(R.id.lista);
                     listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent intent = new Intent(ListaActivity.this, DescricaoActivity.class);
+                            intent.putExtra("venue", resultados.getAvfms().get(position).getVenue());
+                            startActivity(intent);
+                        }
+                    });
                 } else {
                     Log.i("ERROR", "Status: "+ response.code() + ". " + response.errorBody().toString());
                 }
