@@ -65,7 +65,6 @@ public class DescricaoActivity extends AppCompatActivity {
                         if (resultado.getStats() != null) {
                             stats.setText(Html.fromHtml(resultado.getStats()));
                         }
-                        Toast.makeText(DescricaoActivity.this,resultado.getLink(), Toast.LENGTH_LONG).show();
                         if (resultado.getLink() != null) {
                             link.setText(resultado.getLink());
                         }
