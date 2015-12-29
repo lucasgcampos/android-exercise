@@ -71,7 +71,10 @@ public class DescricaoActivity extends AppCompatActivity {
                         }
 
                         ImageView imageView = (ImageView) findViewById(R.id.imagem_descricao);
-                        Picasso.with(DescricaoActivity.this).load("http://aviewfrommyseat.com/photos/" + resultado.getNewest_image()).into(imageView);
+                        Picasso.with(DescricaoActivity.this)
+                                .load("http://aviewfrommyseat.com/photos/" + resultado.getNewest_image())
+                                .fit()
+                                .into(imageView);
                     } else {
                         Log.i("ERROR", "Status: "+ response.code() + ". " + response.errorBody().toString());
                     }

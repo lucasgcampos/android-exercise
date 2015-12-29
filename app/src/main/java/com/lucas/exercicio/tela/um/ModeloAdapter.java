@@ -52,7 +52,10 @@ public class ModeloAdapter extends BaseAdapter{
         Modelo first = (Modelo) modelos.getAvfms().get(position);
 
         ImageView imageView = (ImageView) linha.findViewById(R.id.imagem);
-        Picasso.with(context).load("http://aviewfrommyseat.com/wallpaper/" + first.getImage()).resize(400, 200).into(imageView);
+        Picasso.with(context)
+                .load("http://aviewfrommyseat.com/wallpaper/" + first.getImage())
+                .fit()
+                .into(imageView);
 
         TextView venue = (TextView) linha.findViewById(R.id.venue);
         venue.setText(first.getVenue());
