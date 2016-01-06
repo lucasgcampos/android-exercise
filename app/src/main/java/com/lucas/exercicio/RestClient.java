@@ -12,7 +12,7 @@ import retrofit.Retrofit;
 public class RestClient {
 
     private static final String BASE_URL = "https://aviewfrommyseat.com/avf/api/";
-    private ModelService modelService;
+    private AppService appService;
     private static OkHttpClient httpClient = new OkHttpClient();
 
     public RestClient() {
@@ -22,11 +22,11 @@ public class RestClient {
                 .client(httpClient)
                 .build();
 
-        modelService = retrofit.create(ModelService.class);
+        appService = retrofit.create(AppService.class);
     }
 
-    public ModelService getModelService() {
-        return modelService;
+    public AppService getAppService() {
+        return appService;
     }
 
 }

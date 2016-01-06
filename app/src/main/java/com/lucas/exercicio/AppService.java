@@ -11,7 +11,7 @@ import retrofit.http.Query;
  * @author Lucas Campos
  *         12/26/15
  */
-public interface ModelService {
+public interface AppService {
 
     @GET("featured.php?appkey=f6bcd8e8bb853890f4fb2be8ce0418fa")
     Call<ListaLocal> getModelos();

@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lucas.exercicio.ModelService;
+import com.lucas.exercicio.AppService;
 import com.lucas.exercicio.R;
 import com.lucas.exercicio.RestClient;
 import com.squareup.picasso.Picasso;
@@ -31,8 +31,8 @@ public class DescricaoActivity extends AppCompatActivity {
         final String venue = intent.getStringExtra("venue");
 
         if (venue != null) {
-            ModelService modelService = restClient.getModelService();
-            Call<ListaDescricao> callback = modelService.getDescricao(venue);
+            AppService appService = restClient.getAppService();
+            Call<ListaDescricao> callback = appService.getDescricao(venue);
 
             callback.enqueue(new Callback<ListaDescricao>() {
                 @Override

@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.lucas.exercicio.ModelService;
+import com.lucas.exercicio.AppService;
 import com.lucas.exercicio.R;
 import com.lucas.exercicio.RestClient;
 
@@ -26,8 +26,8 @@ public class LocalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View layout = inflater.inflate(R.layout.fragment_local, container, false);
 
-        ModelService modelService = restClient.getModelService();
-        final Call<ListaLocal> callBack = modelService.getModelos();
+        AppService appService = restClient.getAppService();
+        final Call<ListaLocal> callBack = appService.getModelos();
 
         callBack.enqueue(new Callback<ListaLocal>() {
             @Override
@@ -35,7 +35,7 @@ public class LocalFragment extends Fragment {
                 if (response.isSuccess()) {
                     final ListaLocal resultados = response.body();
 
-                    ModeloAdapter adapter = new ModeloAdapter(resultados, getActivity());
+                    LocalAdapter adapter = new LocalAdapter(resultados, getActivity());
 
                     RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.lista);
                     recyclerView.setAdapter(adapter);
