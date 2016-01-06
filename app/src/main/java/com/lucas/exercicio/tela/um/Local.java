@@ -4,14 +4,12 @@ package com.lucas.exercicio.tela.um;
  * @author Lucas Campos
  * 12/25/15
  */
-public class Modelo {
+public class Local {
 
     private String image;
     private String venue;
     private String note;
     private int views;
-    private int width;
-    private int height;
 
     public String getImage() {
         return image;
@@ -35,22 +33,6 @@ public class Modelo {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public int getViews() {

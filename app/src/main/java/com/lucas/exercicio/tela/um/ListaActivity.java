@@ -1,63 +1,49 @@
 package com.lucas.exercicio.tela.um;
 
-import android.content.Intent;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import com.lucas.exercicio.tela.dois.DescricaoActivity;
-import com.lucas.exercicio.ModelService;
 import com.lucas.exercicio.R;
-import com.lucas.exercicio.RestClient;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 public class ListaActivity extends AppCompatActivity {
-
-    private RestClient restClient = new RestClient();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
+    }
 
-        ModelService modelService = restClient.getModelService();
-        final Call<ListaModelo> callBack = modelService.getModelos();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        carregarFragment();
+    }
 
-        callBack.enqueue(new Callback<ListaModelo>() {
-            @Override
-            public void onResponse(Response<ListaModelo> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    final ListaModelo resultados = response.body();
+    public boolean carregarFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                    ModeloAdapter adapter = new ModeloAdapter(resultados, ListaActivity.this);
+        boolean conectado = isConectado();
 
-                    ListView listView = (ListView) findViewById(R.id.lista);
-                    listView.setAdapter(adapter);
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Intent intent = new Intent(ListaActivity.this, DescricaoActivity.class);
-                            intent.putExtra("venue", resultados.getAvfms().get(position).getVenue());
-                            startActivity(intent);
-                        }
-                    });
-                } else {
-                    Log.i("ERROR", "Status: "+ response.code() + ". " + response.errorBody().toString());
-                }
-            }
+        if (conectado) {
+            transaction.replace(R.id.tela, new LocalFragment());
+        } else {
+            transaction.replace(R.id.tela, new SemConexaoFragment());
+        }
 
-            @Override
-            public void onFailure(Throwable t) {
-                Log.i("ERROR", t.getLocalizedMessage());
-            }
-        });
+        transaction.addToBackStack(null).commit();
+
+        return conectado;
+    }
+
+    private boolean isConectado() {
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
 }

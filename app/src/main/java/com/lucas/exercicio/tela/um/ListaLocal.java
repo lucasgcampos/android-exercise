@@ -6,15 +6,15 @@ import java.util.List;
  * @author Lucas Campos
  *         12/27/15
  */
-public class ListaModelo {
+public class ListaLocal {
 
-    private List<Modelo> avfms;
+    private List<Local> avfms;
 
-    public List<Modelo> getAvfms() {
+    public List<Local> getAvfms() {
         return avfms;
     }
 
-    public void setAvfms(List<Modelo> avfms) {
+    public void setAvfms(List<Local> avfms) {
         this.avfms = avfms;
     }
 }

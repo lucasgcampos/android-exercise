@@ -5,19 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lucas.exercicio.ModelService;
 import com.lucas.exercicio.R;
 import com.lucas.exercicio.RestClient;
-import com.lucas.exercicio.tela.um.ListaModelo;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
-
-import java.util.List;
 
 import retrofit.Call;
 import retrofit.Callback;

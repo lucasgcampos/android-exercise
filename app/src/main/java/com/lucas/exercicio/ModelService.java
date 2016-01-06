@@ -1,7 +1,7 @@
 package com.lucas.exercicio;
 
 import com.lucas.exercicio.tela.dois.ListaDescricao;
-import com.lucas.exercicio.tela.um.ListaModelo;
+import com.lucas.exercicio.tela.um.ListaLocal;
 
 import retrofit.Call;
 import retrofit.http.GET;
@@ -14,7 +14,7 @@ import retrofit.http.Query;
 public interface ModelService {
 
     @GET("featured.php?appkey=f6bcd8e8bb853890f4fb2be8ce0418fa")
-    Call<ListaModelo> getModelos();
+    Call<ListaLocal> getModelos();
 
     @GET("venue.php?appkey=f6bcd8e8bb853890f4fb2be8ce0418fa&venue=Coleman+Coliseum&info=true")
     Call<ListaDescricao> getDescricao(@Query("venue") String venue);
