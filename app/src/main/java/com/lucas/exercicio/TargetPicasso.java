@@ -1,9 +1,13 @@
 package com.lucas.exercicio;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
+import com.lucas.exercicio.tela.dois.DescricaoFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -18,9 +22,9 @@ import java.io.IOException;
 public class TargetPicasso implements Target {
 
     private final String filename;
-    private final Context context;
+    private final Activity context;
 
-    public TargetPicasso(String filename, Context context) {
+    public TargetPicasso(String filename, Activity context) {
         this.context = context;
         this.filename = filename;
     }
@@ -34,16 +38,15 @@ public class TargetPicasso implements Target {
         }
 
         File mediaFile = new File(folder.getPath() + File.pathSeparator + filename);
-
         try {
             mediaFile.createNewFile();
 
             FileOutputStream ostream = new FileOutputStream(mediaFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 75, ostream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, ostream);
             ostream.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Não foi possível fazer cache da imagem. #ERROR: " + e.getMessage());
         }
     }
 

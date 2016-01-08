@@ -2,7 +2,6 @@ package com.lucas.exercicio.tela.um;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,11 @@ import com.lucas.exercicio.R;
 
 public class SemConexaoFragment extends Fragment {
 
-    private Button button;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_sem_localizacao, container, false);
 
-        button = (Button) layout.findViewById(R.id.try_again);
+        Button button = (Button) layout.findViewById(R.id.try_again);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

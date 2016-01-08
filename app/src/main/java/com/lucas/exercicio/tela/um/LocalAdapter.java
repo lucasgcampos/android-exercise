@@ -24,6 +24,13 @@ import java.io.File;
  */
 public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> {
 
+    public static final String VENUE = "venue";
+    public static final String URL_WALLPAPER = "http://aviewfrommyseat.com/wallpaper/";
+    public static final int WIDTH_LAND = 650;
+    public static final int HEIGHT_LAND = 200;
+    public static final int WIDTH_PORTRAIT = 430;
+    public static final int HEIGHT__PORTRAIT = 200;
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista, parent, false);
@@ -34,7 +41,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                 int itemPosition = recycler.getChildPosition(layout);
 
                 Intent intent = new Intent(context, DescricaoActivity.class);
-                intent.putExtra("venue", modelos.getAvfms().get(itemPosition).getVenue());
+                intent.putExtra(VENUE, modelos.getAvfms().get(itemPosition).getVenue());
                 context.startActivity(intent);
             }
         });
@@ -57,11 +64,24 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
         File mediaFile = new File(folder.getPath() + File.pathSeparator + itemSelecionado.getImage());
         if (!mediaFile.exists()) {
             Picasso.with(context)
-                    .load("http://aviewfrommyseat.com/wallpaper/" + itemSelecionado.getImage())
+                    .load(URL_WALLPAPER + itemSelecionado.getImage())
                     .into(new TargetPicasso(itemSelecionado.getImage(), context));
+        }
+
+        Bitmap foto = BitmapFactory.decodeFile(mediaFile.getPath());
+        if (foto != null) {
+            Bitmap reduzida = null;
+            if (context.getResources().getBoolean(R.bool.isLand)) {
+                reduzida = Bitmap.createScaledBitmap(foto, WIDTH_LAND, HEIGHT_LAND, true);
+            } else {
+                reduzida = Bitmap.createScaledBitmap(foto, WIDTH_PORTRAIT, HEIGHT__PORTRAIT, true);
+            }
+            imageView.setImageBitmap(reduzida);
         } else {
-            Bitmap foto = BitmapFactory.decodeFile(mediaFile.getPath());
-            imageView.setImageBitmap(foto);
+            Picasso.with(context)
+                    .load(URL_WALLPAPER + itemSelecionado.getImage())
+                    .fit()
+                    .into(imageView);
         }
 
         TextView venue = (TextView) holder.layout.findViewById(R.id.venue);

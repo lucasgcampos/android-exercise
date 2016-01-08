@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.lucas.exercicio.AppService;
 import com.lucas.exercicio.R;
@@ -49,7 +50,8 @@ public class LocalFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                Log.i("ERROR", t.getLocalizedMessage());
+                Toast.makeText(getContext(), "Não foi possível consultar os dados.", Toast.LENGTH_LONG).show();
+                throw new RuntimeException("Falha ao consultar os dados. #ERROR: " + t.getMessage());
             }
         });
 
