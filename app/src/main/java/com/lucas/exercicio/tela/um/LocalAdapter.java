@@ -2,8 +2,6 @@ package com.lucas.exercicio.tela.um;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +24,11 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
 
     public static final String VENUE = "venue";
     public static final String URL_WALLPAPER = "http://aviewfrommyseat.com/wallpaper/";
-    public static final int WIDTH_LAND = 650;
-    public static final int HEIGHT_LAND = 200;
-    public static final int WIDTH_PORTRAIT = 430;
-    public static final int HEIGHT__PORTRAIT = 200;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View layout = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista, parent, false);
+
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,15 +40,18 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                 context.startActivity(intent);
             }
         });
-        ViewHolder holder = new ViewHolder(layout);
-        return holder;
+
+        TextView venue = (TextView) layout.findViewById(R.id.venue);
+        TextView note = (TextView) layout.findViewById(R.id.note);
+        TextView view = (TextView) layout.findViewById(R.id.view);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.imagem);
+
+        return new ViewHolder(layout, venue, note, view, imageView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Local itemSelecionado = modelos.getAvfms().get(position);
-
-        ImageView imageView = (ImageView) holder.layout.findViewById(R.id.imagem);
 
         File folder = context.getFilesDir();
 
@@ -68,30 +66,12 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                     .into(new TargetPicasso(itemSelecionado.getImage(), context));
         }
 
-        Bitmap foto = BitmapFactory.decodeFile(mediaFile.getPath());
-        if (foto != null) {
-            Bitmap reduzida = null;
-            if (context.getResources().getBoolean(R.bool.isLand)) {
-                reduzida = Bitmap.createScaledBitmap(foto, WIDTH_LAND, HEIGHT_LAND, true);
-            } else {
-                reduzida = Bitmap.createScaledBitmap(foto, WIDTH_PORTRAIT, HEIGHT__PORTRAIT, true);
-            }
-            imageView.setImageBitmap(reduzida);
-        } else {
-            Picasso.with(context)
-                    .load(URL_WALLPAPER + itemSelecionado.getImage())
-                    .fit()
-                    .into(imageView);
-        }
+        //TODO ajustar tamanho da imagem
+        Picasso.with(context).load(mediaFile).fit().into(holder.imageView);
 
-        TextView venue = (TextView) holder.layout.findViewById(R.id.venue);
-        venue.setText(itemSelecionado.getVenue());
-
-        TextView note = (TextView) holder.layout.findViewById(R.id.note);
-        note.setText(itemSelecionado.getNote());
-
-        TextView view = (TextView) holder.layout.findViewById(R.id.view);
-        view.setText(String.valueOf(itemSelecionado.getViews()));
+        holder.venue.setText(itemSelecionado.getVenue());
+        holder.note.setText(itemSelecionado.getNote());
+        holder.view.setText(String.valueOf(itemSelecionado.getViews()));
     }
 
     @Override
@@ -108,12 +88,19 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public View layout;
+        private TextView venue;
+        private TextView note;
+        private TextView view;
+        private ImageView imageView;
 
-        public ViewHolder(View tela) {
-            super(tela);
-            layout = tela;
+        public ViewHolder(View layout, TextView venue, TextView note, TextView view, ImageView imageView) {
+            super(layout);
+            this.view = view;
+            this.note = note;
+            this.venue = venue;
+            this.imageView = imageView;
         }
+
     }
 
 }
