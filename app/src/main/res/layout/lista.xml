@@ -7,11 +7,12 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     card_view:cardCornerRadius="2dp"
+    card_view:contentPadding="7dp"
+    card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="false">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_margin="7sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

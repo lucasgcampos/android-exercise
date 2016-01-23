@@ -100,9 +100,6 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
             this.imageView = imageView;
         }
 
-        public ImageView getImageView() {
-            return imageView;
-        }
     }
 
 }

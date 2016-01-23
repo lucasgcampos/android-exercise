@@ -16,11 +16,12 @@ public class SemConexaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_sem_localizacao, container, false);
 
+        final ListaActivity activity = (ListaActivity) getActivity();
+
         Button button = (Button) layout.findViewById(R.id.try_again);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListaActivity activity = (ListaActivity) getActivity();
                 boolean conectado = activity.carregarFragment();
 
                 if (!conectado) {
