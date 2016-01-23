@@ -66,8 +66,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                     .into(new TargetPicasso(itemSelecionado.getImage(), context));
         }
 
-        //TODO ajustar tamanho da imagem
-        Picasso.with(context).load(mediaFile).fit().into(holder.imageView);
+        Picasso.with(context).load(mediaFile).transform(new Transformation(holder)).into(holder.imageView);
 
         holder.venue.setText(itemSelecionado.getVenue());
         holder.note.setText(itemSelecionado.getNote());
@@ -101,6 +100,9 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
             this.imageView = imageView;
         }
 
+        public ImageView getImageView() {
+            return imageView;
+        }
     }
 
 }
