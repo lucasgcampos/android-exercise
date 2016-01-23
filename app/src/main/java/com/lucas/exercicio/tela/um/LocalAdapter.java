@@ -66,7 +66,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
                     .into(new TargetPicasso(itemSelecionado.getImage(), context));
         }
 
-        Picasso.with(context).load(mediaFile).transform(new Transformation(holder)).into(holder.imageView);
+        Picasso.with(context).load(mediaFile).fit().centerCrop().into(holder.imageView);
 
         holder.venue.setText(itemSelecionado.getVenue());
         holder.note.setText(itemSelecionado.getNote());

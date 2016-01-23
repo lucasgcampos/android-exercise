@@ -2,4 +2,5 @@
     <string name="app_name">Tritone</string>
     <string name="try_again">Tentar Novamente</string>
     <string name="info_no_conection">Você está sem conexão com a internet, conecte a uma rede e tente novamente</string>
+    <string name="list_image_venue_description">Imagem do local</string>
 </resources>

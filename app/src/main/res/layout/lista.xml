@@ -23,7 +23,7 @@
                 android:id="@+id/imagem"
                 card_view:layout_widthPercent="100%"
                 card_view:layout_aspectRatio="178%"
-                android:contentDescription="Imagem do local" />
+                android:contentDescription="@string/list_image_venue_description" />
 
         </android.support.percent.PercentFrameLayout>
 
