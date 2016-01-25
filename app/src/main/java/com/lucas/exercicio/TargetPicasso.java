@@ -1,13 +1,9 @@
 package com.lucas.exercicio;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 
-import com.lucas.exercicio.tela.dois.DescricaoFragment;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

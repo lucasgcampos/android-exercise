@@ -7,11 +7,12 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucas.exercicio.AppService;
+import com.lucas.exercicio.CustomImageView;
 import com.lucas.exercicio.R;
 import com.lucas.exercicio.RestClient;
 import com.lucas.exercicio.tela.um.ListaActivity;
@@ -33,12 +34,6 @@ public class DescricaoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.layout = inflater.inflate(R.layout.fragment_descricao, container, false);
-        return layout;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         final String venue = getActivity().getIntent().getStringExtra(VENUE);
 
@@ -50,7 +45,7 @@ public class DescricaoFragment extends Fragment {
                 @Override
                 public void onResponse(Response<ListaDescricao> response, Retrofit retrofit) {
                     if (response.isSuccess()) {
-                        Descricao resultado = response.body().getAvfms().get(0);
+                        final Descricao resultado = response.body().getAvfms().get(0);
 
                         TextView venueT = (TextView) layout.findViewById(R.id.venue_descricao);
                         TextView address = (TextView) layout.findViewById(R.id.address);
@@ -75,13 +70,23 @@ public class DescricaoFragment extends Fragment {
                             link.setText(resultado.getLink());
                         }
 
-                        ImageView imageView = (ImageView) layout.findViewById(R.id.imagem_descricao);
+                        final CustomImageView imageView = (CustomImageView) layout.findViewById(R.id.imagem_descricao);
+                        imageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                imageView.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (getResources().getBoolean(R.bool.isLand)) {
+                                            Picasso.with(getActivity()).load(URL_FOTOS + resultado.getNewest_image()).resize(imageView.getLargura(), imageView.getHeight()).centerCrop().into(imageView);
+                                        } else {
+                                            Picasso.with(getActivity()).load(URL_FOTOS + resultado.getNewest_image()).resize(imageView.getWidth(), imageView.getAltura()).centerCrop().into(imageView);
+                                        }
 
-                        Picasso.with(getActivity())
-                                .load(URL_FOTOS + resultado.getNewest_image())
-                                .fit()
-                                .into(imageView);
-
+                                    }
+                                });
+                            }
+                        });
                     } else {
                         Toast.makeText(getContext(), "Não foi possível consultar os dados.", Toast.LENGTH_LONG).show();
                         throw new RuntimeException("#ERROR: Não obteve sucesso ao realizar uma requisição");
@@ -98,6 +103,8 @@ public class DescricaoFragment extends Fragment {
             Intent intent = new Intent(layout.getContext(), ListaActivity.class);
             layout.getContext().startActivity(intent);
         }
+
+        return layout;
     }
 
 }

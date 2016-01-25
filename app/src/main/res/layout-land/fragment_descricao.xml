@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.lucas.exercicio.CustomImageView
         android:id="@+id/imagem_descricao"
-        android:layout_width="340dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 
     <LinearLayout

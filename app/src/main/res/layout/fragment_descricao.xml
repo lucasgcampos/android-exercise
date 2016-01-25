@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <com.lucas.exercicio.CustomImageView
         android:id="@+id/imagem_descricao"
         android:layout_width="match_parent"
-        android:layout_height="280dp" />
+        android:layout_height="wrap_content" />
 
     <RelativeLayout
         android:paddingLeft="7sp"
@@ -32,7 +32,8 @@
             <ImageView
                 android:layout_width="45dp"
                 android:layout_height="36dp"
-                android:src="@android:drawable/btn_star_big_off"/>
+                android:contentDescription="@string/content_description_rating"
+                android:src="@android:drawable/btn_star_big_off" />
 
             <TextView
                 android:id="@+id/rating"

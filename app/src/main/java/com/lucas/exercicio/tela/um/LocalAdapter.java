@@ -50,7 +50,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         Local itemSelecionado = modelos.getAvfms().get(position);
 
         File folder = context.getFilesDir();
@@ -59,7 +59,7 @@ public class LocalAdapter extends RecyclerView.Adapter<LocalAdapter.ViewHolder> 
             folder.mkdirs();
         }
 
-        File mediaFile = new File(folder.getPath() + File.pathSeparator + itemSelecionado.getImage());
+        final File mediaFile = new File(folder.getPath() + File.pathSeparator + itemSelecionado.getImage());
         if (!mediaFile.exists()) {
             Picasso.with(context)
                     .load(URL_WALLPAPER + itemSelecionado.getImage())
